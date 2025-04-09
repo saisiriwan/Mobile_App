@@ -1,0 +1,48 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+    id "com.google.gms.google-services"
+}
+
+android {
+    namespace = "com.example.calendar_app"
+    compileSdk 34
+    ndkVersion = "25.1.8937393"
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+        coreLibraryDesugaringEnabled true
+    }
+
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+
+    defaultConfig {
+        applicationId = "com.example.calendar_app"
+        minSdk = 21  // ปรับจาก flutter.minSdkVersion เป็น 21 เพื่อรองรับ WorkManager
+        targetSdk = 34  // ปรับจาก flutter.targetSdkVersion เป็น 34
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
+    }
+
+    buildTypes {
+        release {
+            signingConfig = signingConfigs.debug
+        }
+    }
+}
+
+dependencies {
+    // Import the Firebase BoM
+    implementation platform("com.google.firebase:firebase-bom:33.11.0")
+    implementation "com.google.firebase:firebase-analytics"
+    implementation "androidx.work:work-runtime-ktx:2.8.1"
+    coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:2.0.3"
+}
+
+flutter {
+    source = "../.."
+}
